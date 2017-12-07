@@ -16,7 +16,10 @@ before_build:
   - set PATH=C:\Users\appveyor\AppData\Roaming\local\bin;%PATH%
 
   # LLVM: https://www.appveyor.com/docs/build-environment/#llvm
-  - set PATH=C:\Libraries\llvm-5.0.0;%PATH%
+  - set PATH=C:\Libraries\llvm-5.0.0\bin;%PATH%
+  - dir C:\Libraries\llvm-5.0.0
+  - dir C:\Libraries\llvm-5.0.0\bin
+  - dir C:\Libraries\llvm-5.0.0\lib
   - llvm-config --version
 
   # install stack
