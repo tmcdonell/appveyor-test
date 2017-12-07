@@ -1,0 +1,37 @@
+# vim: nospell
+
+# clone_folder: "c:\\appveyor-test"
+
+# environment:
+#   global:
+#     STACK_ROOT: "c:\\sr"
+#   matrix:
+#     - GHC: "7.10"
+#     - GHC: "8.0"
+#     - GHC: "8.2"
+
+before_build:
+  # http://help.appveyor.com/discussions/problems/6312-curl-command-not-found
+  - set PATH=C:\Program Files\Git\mingw64\bin;%PATH%
+  - set PATH=C:\Users\appveyor\AppData\Roaming\local\bin;%PATH%
+
+  # LLVM: https://www.appveyor.com/docs/build-environment/#llvm
+  - set PATH=C:\Libraries\llvm-5.0.0;%PATH%
+  - llvm-config --version
+
+  # install stack
+  - curl -sS -ostack.zip -L --insecure https://www.stackage.org/stack/windows-x86_64
+  - 7z x stack.zip stack.exe
+  - stack --version
+
+  - ln -s stack-%GHC%.yaml stack.yaml
+  - stack setup --no-terminal > NUL
+  - stack build --no-terminal --copy-bins --fast happy
+  - stack build --no-terminal --no-copy-bins --fast --only-dependencies --test
+
+build_script:
+  - stack build --no-terminal --fast
+
+test_script:
+  - stack exec appveyor-test
+

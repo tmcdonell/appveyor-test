@@ -1,0 +1,39 @@
+name:                 appveyor-test
+version:              0.1.0.0
+synopsis:             Test of AppVeyor
+homepage:             https://github.com/tmcdonell/appveyor-test#readme
+license:              BSD3
+license-file:         LICENSE
+author:               Trevor L. McDonell
+maintainer:           Trevor L. McDonell <tmcdonell@cse.unsw.edu.au>
+copyright:            BSD3
+category:             Web
+build-type:           Simple
+extra-source-files:   README.md
+cabal-version:        >=1.10
+
+-- To avoid duplicated efforts in documentation and dealing with the
+-- complications of embedding Haddock markup inside cabal files, it is
+-- common to point users to the README.md file.
+description:         Please see the README on Github at <https://github.com/tmcdonell/appveyor-test#readme>
+
+executable appveyor-test
+  hs-source-dirs:      src
+  main-is:             Main.hs
+
+  ghc-options:
+      -threaded
+      -rtsopts
+
+  build-depends:
+      base
+    , llvm-hs
+
+  default-language:
+      Haskell2010
+
+source-repository head
+  type:     git
+  location: https://github.com/tmcdonell/appveyor-test
+
+-- vim: nospell
