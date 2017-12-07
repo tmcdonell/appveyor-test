@@ -27,10 +27,8 @@ before_build:
   - 7z x stack.zip stack.exe
   - stack --version
 
-  - ln -s stack-%GHC%.yaml stack.yaml
   - stack setup --no-terminal > NUL
-  - stack build --no-terminal --copy-bins --fast happy
-  - stack build --no-terminal --no-copy-bins --fast --only-dependencies --test
+  - stack build --no-terminal --fast --only-dependencies
 
 build_script:
   - stack build --no-terminal --fast
