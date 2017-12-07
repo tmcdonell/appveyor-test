@@ -2,9 +2,9 @@
 
 # clone_folder: "c:\\appveyor-test"
 
-# environment:
-#   global:
-#     STACK_ROOT: "c:\\sr"
+environment:
+  global:
+    STACK_ROOT: "c:\\sr"
 #   matrix:
 #     - GHC: "7.10"
 #     - GHC: "8.0"
