@@ -28,6 +28,7 @@ executable appveyor-test
   build-depends:
       base
     , llvm-hs
+    , libffi
 
   default-language:
       Haskell2010

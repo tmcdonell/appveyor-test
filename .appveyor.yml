@@ -26,13 +26,21 @@ before_build:
   # shared libraries (the provided version does not include this component).
   - appveyor DownloadFile "https://drive.google.com/uc?export=download&id=1VTs8qaSiVAGO1BQYUbfafAXigDuxra5H" -FileName llvm-5.0.0.7z
   - 7z x llvm-5.0.0.7z -oC:\
-
   - set PATH=C:\llvm-5.0.0\bin;%PATH%
   - dir C:\llvm-5.0.0
   - dir C:\llvm-5.0.0\bin
   - dir C:\llvm-5.0.0\lib
   - llvm-config --version
   - llvm-config --libs --link-shared
+
+  # use MSYS2 to install pkg-config and libffi
+  # https://www.appveyor.com/docs/build-environment/#mingw-msys-cygwin
+  - set PATH=%PATH%;C:\msys64\usr\bin
+  - pacman -S --noconfirm pkg-config libffi-devel
+
+  # set the prefix to a standard windows file path
+  # prefix=/usr ==> prefix=C:/msys64/usr
+  - sed -i'' -e 's,/usr,C:/msys64/usr,' C:\msys64\usr\lib\pkgconfig\libffi.pc
 
   # install stack
   - appveyor DownloadFile "https://www.stackage.org/stack/windows-x86_64" -FileName stack.zip
