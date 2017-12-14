@@ -15,6 +15,27 @@ environment:
 #     - GHC: "8.2"
 
 before_build:
+  # Install CUDA-9
+  - appveyor DownloadFile "https://developer.nvidia.com/compute/cuda/9.1/Prod/local_installers/cuda_9.1.85_windows" -FileName install_cuda.exe
+  # - appveyor DownloadFile "https://developer.nvidia.com/compute/cuda/9.1/Prod/network_installers/cuda_9.1.85_windows_network" -FileName install_cuda.exe
+  # - install_cuda.exe -s compiler_9.1 cudart_9.1 cublas_9.1 cublas_dev_9.1 cufft_9.1 cufft_dev_9.1 cusolver_9.1 cusolver_dev_9.1 cusparse_9.1 cusparse_dev_9.1
+  - install_cuda.exe -s compiler_9.1
+  - install_cuda.exe -s cudart_9.1
+  - install_cuda.exe -s cublas_9.1 cublas_dev_9.1
+  - install_cuda.exe -s cufft_9.1 cufft_dev_9.1
+  - install_cuda.exe -s cusolver_9.1 cusolver_dev_9.1
+  - install_cuda.exe -s cusparse_9.1 cusparse_dev_9.1
+
+  - dir "%ProgramFiles%"
+  - dir "C:\Program Files"
+  - dir "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA"
+  - dir "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.1"
+  - dir "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.1\bin"
+
+  - set PATH=%ProgramFiles%\NVIDIA GPU Computing Toolkit\CUDA\v9.1\bin;%PATH%
+  - nvcc --version
+
+  # Messing with the path is fraught with danger in the wacky world of windows
   - set PATH=%PATH%;C:\Program Files\Git\mingw64\bin
   - set PATH=%PATH%;C:\Users\appveyor\AppData\Roaming\local\bin
   - set PATH=%PATH%;C:\msys64\usr\bin
@@ -42,20 +63,6 @@ before_build:
   # prefix=/usr ==> prefix=C:/msys64/usr
   - pacman -S --noconfirm libffi-devel
   - sed -i'' -e 's,/usr,C:/msys64/usr,' C:\msys64\usr\lib\pkgconfig\libffi.pc
-
-  # Install CUDA-9
-  - appveyor DownloadFile "https://developer.nvidia.com/compute/cuda/9.1/Prod/local_installers/cuda_9.1.85_windows" -FileName install_cuda.exe
-  # - appveyor DownloadFile "https://developer.nvidia.com/compute/cuda/9.1/Prod/network_installers/cuda_9.1.85_windows_network" -FileName install_cuda.exe
-  - install_cuda.exe -s compiler_9.1 cudart_9.1 cublas_9.1 cublas_dev_9.1 cufft_9.1 cufft_dev_9.1 cusolver_9.1 cusolver_dev_9.1 cusparse_9.1 cusparse_dev_9.1
-
-  - dir "%ProgramFiles%"
-  - dir "C:\Program Files"
-  - dir "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA"
-  - dir "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.1"
-  - dir "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.1\bin"
-
-  - set PATH=%ProgramFiles%\NVIDIA GPU Computing Toolkit\CUDA\v9.1\bin;%PATH%
-  - nvcc --version
 
   # install stack
   - appveyor DownloadFile "https://www.stackage.org/stack/windows-x86_64" -FileName stack.zip
