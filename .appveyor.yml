@@ -2,6 +2,10 @@
 
 clone_folder: "c:\\appveyor-test"
 
+image:
+- Visual Studio 2015
+- Visual Studio 2017
+
 environment:
   global:
     STACK_ROOT: "c:\\sr"
