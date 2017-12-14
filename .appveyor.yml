@@ -19,7 +19,7 @@ before_build:
   - appveyor DownloadFile "https://developer.nvidia.com/compute/cuda/9.1/Prod/local_installers/cuda_9.1.85_win10" -FileName install_cuda.exe
   # - appveyor DownloadFile "https://developer.nvidia.com/compute/cuda/9.1/Prod/local_installers/cuda_9.1.85_windows" -FileName install_cuda.exe
   # - appveyor DownloadFile "https://developer.nvidia.com/compute/cuda/9.1/Prod/network_installers/cuda_9.1.85_windows_network" -FileName install_cuda.exe
-  - install_cuda.exe -s compiler_9.1 cudart_9.1 cublas_9.1 cublas_dev_9.1 cufft_9.1 cufft_dev_9.1 cusolver_9.1 cusolver_dev_9.1 cusparse_9.1 cusparse_dev_9.1 && exit 0
+  - install_cuda.exe -s compiler_9.1 cudart_9.1 cublas_9.1 cublas_dev_9.1 cufft_9.1 cufft_dev_9.1 cusolver_9.1 cusolver_dev_9.1 cusparse_9.1 cusparse_dev_9.1 || exit 0
   # - install_cuda.exe -s compiler_9.1
   # - install_cuda.exe -s cudart_9.1
   # - install_cuda.exe -s cublas_9.1 cublas_dev_9.1
