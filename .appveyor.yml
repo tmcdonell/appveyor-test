@@ -36,7 +36,8 @@ before_build:
 
   # Install CUDA-8
   # - appveyor DownloadFile "https://developer.nvidia.com/compute/cuda/8.0/prod/local_installers/cuda_8.0.44_windows-exe" -FileName install_cuda.exe
-  - appveyor DownloadFile "https://developer.nvidia.com/compute/cuda/8.0/Prod2/local_installers/cuda_8.0.61_windows-exe" -FileName install_cuda.exe
+  # - appveyor DownloadFile "https://developer.nvidia.com/compute/cuda/8.0/Prod2/local_installers/cuda_8.0.61_windows-exe" -FileName install_cuda.exe
+  - appveyor DownloadFile "https://developer.nvidia.com/compute/cuda/8.0/Prod2/network_installers/cuda_8.0.61_windows_network-exe" -FileName install_cuda.exe
   - install_cuda.exe -s compiler_8.0
   - install_cuda.exe -s cudart_8.0
   - install_cuda.exe -s cublas_8.0 cublas_dev_8.0
