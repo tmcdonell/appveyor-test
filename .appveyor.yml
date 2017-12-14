@@ -62,6 +62,7 @@ before_build:
 
   # LLVM: Download and install our own copy of LLVM, which has been built with
   # shared libraries (the provided version does not include this component).
+  # https://gist.github.com/yuhangwang/380b94bebe2af386fea9d2e352dbae52
   - appveyor DownloadFile "https://drive.google.com/uc?export=download&id=1VTs8qaSiVAGO1BQYUbfafAXigDuxra5H" -FileName llvm-5.0.0.7z
   - 7z x llvm-5.0.0.7z -oC:\
   - set PATH=C:\llvm-5.0.0\bin;%PATH%
