@@ -12,7 +12,7 @@ environment:
 
 before_build:
   # http://help.appveyor.com/discussions/problems/6312-curl-command-not-found
-  - set PATH=C:\Program Files\Git\mingw64\bin;%PATH%
+  # - set PATH=C:\Program Files\Git\mingw64\bin;%PATH%
   - set PATH=C:\Users\appveyor\AppData\Roaming\local\bin;%PATH%
 
   # LLVM: https://www.appveyor.com/docs/build-environment/#llvm
@@ -25,7 +25,6 @@ before_build:
   # LLVM: Download and install our own copy of LLVM, which has been built with
   # shared libraries (the provided version does not include this component).
   - appveyor DownloadFile "https://drive.google.com/uc?export=download&id=1VTs8qaSiVAGO1BQYUbfafAXigDuxra5H" -FileName llvm-5.0.0.7z
-  # - curl -sSL -o llvm-5.0.0.7z 'http://drive.google.com/uc?export=download&id=1VTs8qaSiVAGO1BQYUbfafAXigDuxra5H'
   - 7z x llvm-5.0.0.7z -oC:\
 
   - set PATH=C:\llvm-5.0.0\bin;%PATH%
@@ -36,7 +35,7 @@ before_build:
   - llvm-config --libs --link-shared
 
   # install stack
-  - curl -sSL -o stack.zip --insecure https://www.stackage.org/stack/windows-x86_64
+  - appveyor DownloadFile "https://www.stackage.org/stack/windows-x86_64" -FileName stack.zip
   - 7z x stack.zip stack.exe
   - stack --version
 
