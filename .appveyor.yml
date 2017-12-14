@@ -2,9 +2,9 @@
 
 clone_folder: "c:\\appveyor-test"
 
-image:
-- Visual Studio 2015
-- Visual Studio 2017
+# image:
+# - Visual Studio 2015
+# - Visual Studio 2017
 
 environment:
   global:
@@ -16,7 +16,7 @@ environment:
 
 before_build:
   # http://help.appveyor.com/discussions/problems/6312-curl-command-not-found
-  # - set PATH=C:\Program Files\Git\mingw64\bin;%PATH%
+  - set PATH=C:\Program Files\Git\mingw64\bin;%PATH%
   - set PATH=C:\Users\appveyor\AppData\Roaming\local\bin;%PATH%
 
   # LLVM: https://www.appveyor.com/docs/build-environment/#llvm
