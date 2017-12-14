@@ -1,6 +1,6 @@
 # vim: nospell
 
-# clone_folder: "c:\\appveyor-test"
+clone_folder: "c:\\appveyor-test"
 
 environment:
   global:
@@ -16,11 +16,23 @@ before_build:
   - set PATH=C:\Users\appveyor\AppData\Roaming\local\bin;%PATH%
 
   # LLVM: https://www.appveyor.com/docs/build-environment/#llvm
-  - set PATH=C:\Libraries\llvm-5.0.0\bin;%PATH%
-  - dir C:\Libraries\llvm-5.0.0
-  - dir C:\Libraries\llvm-5.0.0\bin
-  - dir C:\Libraries\llvm-5.0.0\lib
+  # - set PATH=C:\Libraries\llvm-5.0.0\bin;%PATH%
+  # - dir C:\Libraries\llvm-5.0.0
+  # - dir C:\Libraries\llvm-5.0.0\bin
+  # - dir C:\Libraries\llvm-5.0.0\lib
+  # - llvm-config --version
+
+  # LLVM: Download and install our own copy of LLVM, which has been built with
+  # shared libraries (the provided version does not include this component).
+  - appveyor DownloadFile 'https://drive.google.com/open?id=1fC6VKSf9hJIgI8PoUfgXTaTS8b7GpZe4' -FileName 'llvm-5.0.0.7z'
+  - 7z x llvm-5.0.0.7z -oC:\
+
+  - set PATH=C:\llvm-5.0.0\bin;%PATH%
+  - dir C:\llvm-5.0.0
+  - dir C:\llvm-5.0.0\bin
+  - dir C:\llvm-5.0.0\lib
   - llvm-config --version
+  - llvm-config --libs --link-shared
 
   # install stack
   - curl -sS -ostack.zip -L --insecure https://www.stackage.org/stack/windows-x86_64
@@ -28,7 +40,7 @@ before_build:
   - stack --version
 
   - stack setup --no-terminal > NUL
-  - stack build --no-terminal --fast --only-dependencies
+  - stack build --no-terminal --fast --only-dependencies --extra-lib-dirs=C:\llvm-5.0.0\bin
 
 build_script:
   - stack build --no-terminal --fast
