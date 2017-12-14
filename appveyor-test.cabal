@@ -29,6 +29,8 @@ executable appveyor-test
       base
     , llvm-hs
     , libffi
+    , cuda
+    , nvvm
 
   default-language:
       Haskell2010

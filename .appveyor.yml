@@ -15,9 +15,9 @@ environment:
 #     - GHC: "8.2"
 
 before_build:
-  # http://help.appveyor.com/discussions/problems/6312-curl-command-not-found
   - set PATH=C:\Program Files\Git\mingw64\bin;%PATH%
   - set PATH=C:\Users\appveyor\AppData\Roaming\local\bin;%PATH%
+  - set PATH=%PATH%;C:\msys64\usr\bin
 
   # LLVM: https://www.appveyor.com/docs/build-environment/#llvm
   # - set PATH=C:\Libraries\llvm-5.0.0\bin;%PATH%
@@ -37,14 +37,25 @@ before_build:
   - llvm-config --version
   - llvm-config --libs --link-shared
 
-  # use MSYS2 to install pkg-config and libffi
-  # https://www.appveyor.com/docs/build-environment/#mingw-msys-cygwin
-  - set PATH=%PATH%;C:\msys64\usr\bin
-  - pacman -S --noconfirm pkg-config libffi-devel
-
-  # set the prefix to a standard windows file path
+  # Use MSYS2 to install libffi
+  # Apply a small hack so that the prefix is a standard windows file path
   # prefix=/usr ==> prefix=C:/msys64/usr
+  - pacman -S --noconfirm libffi-devel
   - sed -i'' -e 's,/usr,C:/msys64/usr,' C:\msys64\usr\lib\pkgconfig\libffi.pc
+
+  # Install CUDA-9
+  # - appveyor DownloadFile "https://developer.nvidia.com/compute/cuda/9.1/Prod/local_installers/cuda_9.1.85_windows" -FileName install_cuda.exe
+  - appveyor DownloadFile "https://developer.nvidia.com/compute/cuda/9.1/Prod/network_installers/cuda_9.1.85_windows_network" -FileName install_cuda.exe
+  - install_cuda.exe -s compiler_9.1 cudart_9.1 cublas_dev_9.1 cufft_dev_9.1 cusolver_dev_9.1 cusparse_dev_9.1
+
+  - dir "%ProgramFiles%"
+  - dir "C:\Program Files"
+  - dir "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA"
+  - dir "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.1"
+  - dir "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.1\bin"
+
+  - set PATH=%ProgramFiles%\NVIDIA GPU Computing Toolkit\CUDA\v9.1\bin;%PATH%
+  - nvcc --version
 
   # install stack
   - appveyor DownloadFile "https://www.stackage.org/stack/windows-x86_64" -FileName stack.zip
