@@ -25,7 +25,7 @@ before_build:
   # LLVM: Download and install our own copy of LLVM, which has been built with
   # shared libraries (the provided version does not include this component).
   # - appveyor DownloadFile https://drive.google.com/uc?export=download&id=1VTs8qaSiVAGO1BQYUbfafAXigDuxra5H -FileName llvm-5.0.0.7z
-  - curl -sSL -o llvm-5.0.0.7z 'https://drive.google.com/uc?export=download&id=1VTs8qaSiVAGO1BQYUbfafAXigDuxra5H'
+  - curl -sSL -o llvm-5.0.0.7z --insecure 'https://drive.google.com/uc?export=download&id=1VTs8qaSiVAGO1BQYUbfafAXigDuxra5H'
   - 7z x llvm-5.0.0.7z -oC:\
 
   - set PATH=C:\llvm-5.0.0\bin;%PATH%
