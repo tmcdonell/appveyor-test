@@ -38,6 +38,7 @@ extra-deps:
     - core
 
 - mintty-0.1.2
+- happy-1.19.9
 
 - adjunctions-4.4
 - ansi-terminal-0.8.0.4
