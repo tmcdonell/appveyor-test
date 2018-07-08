@@ -27,10 +27,7 @@ executable appveyor-test
 
   build-depends:
       base
-    , llvm-hs
-    , libffi
-    , cuda
-    , nvvm
+    , accelerate
 
   default-language:
       Haskell2010
